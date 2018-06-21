@@ -1,0 +1,14 @@
+# Values from "Supplementary Information" at https://doi.org/10.1038/ncomms14617
+# Licensed under Creative Commons Attribution 4.0 International License
+
+CpGsite, Multiplier, Cutoff
+cg01612140, -0.38253, 0.33962
+cg05575921, -0.92224, 0.77332
+cg06126421, -1.70129, 0.59937
+cg08362785,  2.71749, 0.67841
+cg10321156, -0.02073, 0.38737
+cg14975410, -0.04156, 0.44420
+cg19572487, -0.28069, 0.48629
+cg23665802, -0.89440, 0.29927
+cg24704287, -2.98637, 0.30730
+cg25983901, -1.80325, 0.48522
