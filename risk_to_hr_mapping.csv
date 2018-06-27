@@ -1,0 +1,8 @@
+# Values extracted from "Table 3" at https://doi.org/10.1038/ncomms14617
+# Licensed under Creative Commons Attribution 4.0 InterNaNtioNaNl License
+
+Lower, Upper,  HREstherModel3, HRKoraModel3
+-Inf,   0, 1.00, 1.00
+   1,   1, 2.16, 0.71
+   2,   5, 3.42, 3.19
+   6, Inf, 7.37, 5.93

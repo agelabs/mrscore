@@ -12,8 +12,10 @@ KoraSpline = smooth.spline(HRMapping$Risk, HRMapping$HRKora, df=7)
 calculateMRscore = function(geoMethylationTable) {
   mergedTable = merge(MRscoreCpgSites, geoMethylationTable, by.x = "CpGsites", by.y = "ID_REF")
   noncontMR = sum(mergedTable$VALUE <= mergedTable$Lower) + sum(mergedTable$VALUE >= mergedTable$Higher)
+  noncontHREsther = subset(RiskMapping, Lower <= noncontMR & Upper >= noncontMR)$HREstherModel3
+  noncontHRKora = subset(RiskMapping, Lower <= noncontMR & Upper >= noncontMR)$HRKoraModel3
   contMR = sum(mergedTable$VALUE * mergedTable$Multipliers)
   contHREster = predict(EstherSpline, contMR)$y
   contHRKora = predict(KoraSpline, contMR)$y
-  return(list("MRscore" = noncontMR, "contMRscore" = contMR, "contHREsther" = contHREster, "contHKora" = contHRKora, "merged" = mergedTable))
+  return(list("MRscore" = noncontMR, "HREsther" = noncontHREsther, "HRKora" = noncontHRKora, "contMRscore" = contMR, "contHREsther" = contHREster, "contHKora" = contHRKora, "merged" = mergedTable))
 }
