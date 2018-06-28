@@ -12,7 +12,7 @@ library(GEOquery)
 
 ui <- fluidPage(
   
-  titlePanel("Calculate MRscore and cont.MRscore using Zhang et al."),
+  titlePanel("Calculate all-cause mortality from 450k"),
   
   sidebarLayout(
     sidebarPanel(
@@ -20,7 +20,17 @@ ui <- fluidPage(
                 label = "Input a GEO accession sample number containing 450k data",
                 placeholder = "GSMxxx"),
       helpText("Use GSM1886935 for example"),
-      actionButton(inputId = "calculate", "Calculate MRscore")
+      actionButton(inputId = "calculate", "Calculate all-cause mortality"),
+      hr(),
+      p("Calculates a persons all-cause mortality from their 450k DNA methylation based on the MRscore and cont.MRscore algorithms published in",
+        a(href="https://doi.org/10.1038/ncomms14617", "\"DNA methylation signatures in peripheral blood strongly predict all-cause mortality\""),
+        "by",
+        a(href="https://www.researchgate.net/profile/Yan_Zhang121", "Yan Zhang"),
+        " et al. Code available at ",
+        a(href="https://github.com/agelabs/mrscore", "Github."),
+        "Send comments or questions to",
+        a(href="https://twitter.com/snowpong", "@snowpong")
+      )
     ),
     
     mainPanel(
