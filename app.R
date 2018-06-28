@@ -35,13 +35,10 @@ server <- function(input, output) {
   
   reactiveResults = reactiveValues(gsmTable = NULL)
   
-  observeEvent(input$calculate, ignoreInit = TRUE,{
-    withProgress(message = paste("Loading ", input$gsm),
-                 {
-                   reactiveResults$gsmTable = gsmTable <- Table(getGEO(input$gsm))
-                 }
-    )
-    
+  observeEvent(input$calculate, {
+    withProgress(message = paste("Loading ", input$gsm), {
+      reactiveResults$gsmTable = gsmTable <- Table(getGEO(input$gsm))
+    })
   })
   
   output$mrScoreResults <- renderTable({
