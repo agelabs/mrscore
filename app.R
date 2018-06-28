@@ -17,9 +17,10 @@ ui <- fluidPage(
   sidebarLayout(
     sidebarPanel(
       textInput(inputId = "gsm",
-                label = "GEO accession number (GSM1886935 for example)",
-                value = "GSM1886935",
+                label = "Input a GEO accession number",
                 placeholder = "GSMxxx"),
+      helpText("Note: Use GSM1886935 for example",
+               "on the full dataset."),
       actionButton(inputId = "calculate", "Calculate MRscore")
     ),
     
