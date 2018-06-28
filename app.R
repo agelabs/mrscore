@@ -25,7 +25,8 @@ ui <- fluidPage(
     ),
     
     mainPanel(
-      tableOutput("mrScoreResults")
+      tableOutput("mrScoreResults"),
+      tableOutput("mrCpGResults")
     )
   )
 )
@@ -33,16 +34,24 @@ ui <- fluidPage(
 server <- function(input, output) {
   source("mrscore.R")
   
-  reactiveResults = reactiveValues(gsmTable = NULL)
+  reactiveResults = reactiveValues(gsmTable = NULL, calculation = NULL)
   
   observeEvent(input$calculate, {
-    withProgress(message = paste("Loading ", input$gsm), {
+    withProgress(message = paste("Loading and calculating ", input$gsm), {
       reactiveResults$gsmTable = gsmTable <- Table(getGEO(input$gsm))
+      
     })
   })
   
+  observeEvent(reactiveResults$gsmTable, {
+    reactiveResults$calculation <- calculateMRscore(reactiveResults$gsmTable)
+  })
+  
   output$mrScoreResults <- renderTable({
-    x <- calculateMRscore(reactiveResults$gsmTable)
+    x <- reactiveResults$calculation$Results
+  })
+  output$mrCpGResults <- renderTable({
+    x <- reactiveResults$calculation$CpGTable
   })
 }
 

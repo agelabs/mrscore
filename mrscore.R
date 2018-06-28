@@ -20,5 +20,5 @@ calculateMRscore = function(geoMethylationTable) {
   contMR = sum(mergedTable$VALUE * mergedTable$Multipliers)
   contHREster = predict(EstherSpline, contMR)$y
   contHRKora = predict(KoraSpline, contMR)$y
-  return(list("MRscore" = noncontMR, "HREsther" = noncontHREsther, "HRKora" = noncontHRKora, "contMRscore" = contMR, "contHREsther" = contHREster, "contHKora" = contHRKora, "merged" = mergedTable))
+  return(list("Results" = data.frame("MRscore" = noncontMR, "HREsther" = noncontHREsther, "HRKora" = noncontHRKora, "contMRscore" = contMR, "contHREsther" = contHREster, "contHKora" = contHRKora), "CpGTable" = mergedTable))
 }
