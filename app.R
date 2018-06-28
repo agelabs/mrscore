@@ -17,10 +17,9 @@ ui <- fluidPage(
   sidebarLayout(
     sidebarPanel(
       textInput(inputId = "gsm",
-                label = "Input a GEO accession number",
+                label = "Input a GEO accession sample number containing 450k data",
                 placeholder = "GSMxxx"),
-      helpText("Note: Use GSM1886935 for example",
-               "on the full dataset."),
+      helpText("Use GSM1886935 for example"),
       actionButton(inputId = "calculate", "Calculate MRscore")
     ),
     
@@ -38,8 +37,11 @@ server <- function(input, output) {
   
   observeEvent(input$calculate, {
     withProgress(message = paste("Loading and calculating ", input$gsm), {
-      reactiveResults$gsmTable = gsmTable <- Table(getGEO(input$gsm))
-      
+      reactiveResults$gsmTable <- tryCatch({
+        Table(getGEO(input$gsm))
+      }, error = function(e) {
+        NULL
+      })
     })
   })
   
