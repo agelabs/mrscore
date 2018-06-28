@@ -10,6 +10,9 @@ EstherSpline = smooth.spline(ContRiskMapping$Risk, ContRiskMapping$HREsther, df=
 KoraSpline = smooth.spline(ContRiskMapping$Risk, ContRiskMapping$HRKora, df=7)
 
 calculateMRscore = function(geoMethylationTable) {
+  if(!"ID_REF" %in% colnames(geoMethylationTable)) {
+    stop("Missing ID_REF column")
+  }
   mergedTable = merge(MRscoreCpgSites, geoMethylationTable, by.x = "CpGsites", by.y = "ID_REF")
   noncontMR = sum(mergedTable$VALUE <= mergedTable$Lower) + sum(mergedTable$VALUE >= mergedTable$Higher)
   noncontHREsther = subset(RiskMapping, Lower <= noncontMR & Upper >= noncontMR)$HREstherModel3
