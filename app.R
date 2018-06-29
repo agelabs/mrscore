@@ -19,7 +19,7 @@ ui <- fluidPage(
       textInput(inputId = "gsm",
                 label = "Input a GEO accession sample number containing 450k data",
                 placeholder = "GSMxxx"),
-      helpText("Use GSM1886935 for example"),
+      helpText("Use GSM1886935 for example, and find more samples ", a(href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GPL13534", "here")),
       actionButton(inputId = "calculate", "Calculate all-cause mortality"),
       hr(),
       p("Calculates a persons all-cause mortality from their 450k DNA methylation based on the MRscore and cont.MRscore algorithms published in",
@@ -34,6 +34,7 @@ ui <- fluidPage(
     ),
     
     mainPanel(
+      h2(textOutput("mortality")),
       tableOutput("mrScoreResults"),
       tableOutput("mrCpGResults")
     )
@@ -60,6 +61,12 @@ server <- function(input, output) {
     reactiveResults$calculation <- calculateMRscore(reactiveResults$gsmTable)
   })
   
+  output$mortality <- renderText({
+    x <-  sprintf("Predicted all-cause mortality: %f", 
+                  mean(c(
+                    reactiveResults$calculation$Results$contHREsther,
+                    reactiveResults$calculation$Results$contHRKora)))
+  })
   output$mrScoreResults <- renderTable({
     x <- reactiveResults$calculation$Results
   })
