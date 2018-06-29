@@ -46,9 +46,10 @@ server <- function(input, output) {
   reactiveResults = reactiveValues(gsmTable = NULL, calculation = NULL)
   
   observeEvent(input$calculate, {
-    withProgress(message = paste("Loading and calculating ", input$gsm), {
+    trimmedGSM <- trimws(input$gsm)
+    withProgress(message = paste("Loading and calculating ", trimmedGSM), {
       reactiveResults$gsmTable <- tryCatch({
-        Table(getGEO(input$gsm))
+        Table(getGEO(trimmedGSM))
       }, error = function(e) {
         NULL
       })
